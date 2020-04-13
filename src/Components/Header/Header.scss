@@ -1,0 +1,77 @@
+@import "../../breakpoints";
+$nav-height: 75px;
+$nav-padding: 15px;
+$nav-bg-color: #212529;
+.Header {
+  height: 400px;
+  background-image: url("https://blackrockdigital.github.io/startbootstrap-agency/img/header-bg.jpg");
+  background-size: cover;
+  // background-position: center center;
+  background-repeat: no-repeat;
+}
+.navbar {
+  background-color: $nav-bg-color;
+  height: $nav-height;
+  // display: flex;
+  flex-direction: row;
+  position: fixed;
+  padding: $nav-padding;
+  color: white;
+  width: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  .col {
+    flex-direction: column;
+    justify-content: center;
+  }
+  nav {
+    display: flex;
+    font-size: 150%;
+  }
+}
+.navbar nav.show-false {
+  display: none;
+}
+.navbar nav.show-true {
+  // display: flex;
+  position: fixed;
+  flex-direction: column;
+  left: 0;
+  top: $nav-height;
+  background-color: $nav-bg-color + #020202;
+  width: 100%;
+  animation-name: show;
+  animation-duration: 250ms;
+  overflow: hidden;
+}
+@keyframes show {
+  from {
+    height: 0;
+  }
+  to {
+    height: 14%;
+  }
+}
+
+@import "Intro";
+@media screen and (min-width: $break-desktop) {
+  .Header {
+    height: 800px;
+    .navbar {
+      background-color: transparent;
+    }
+  }
+  .navbar nav[class^="show-"] {
+    position: unset;
+  }
+  .navbar button {
+    display: none;
+  }
+}
+@media screen and(min-width:$break-desktop-lg) {
+  .Header {
+    background-size: cover;
+    background-position: center center;
+  }
+}

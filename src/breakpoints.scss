@@ -1,0 +1,13 @@
+/* 
+  breakpoints:
+  mobile: <=575
+  tablet > 575 && <=767
+  desktop >= 768 && <= 992
+  desktop-large: < 1200px
+  
+  whole app does not stop expanding after desktop, only the content is constrained
+*/
+$break-mobile: 575px;
+$break-tablet: 767px;
+$break-desktop: 992px;
+$break-desktop-lg: 1200px;
