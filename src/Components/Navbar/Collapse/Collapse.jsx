@@ -74,8 +74,9 @@ function Collapse(props) {
     let stop = calcAnimHeight(ref.current);
     setTimeout(() => {
       if (animHeight < stop) {
-        setAnimHeight(animHeight + 1);
+        setAnimHeight(animHeight + 2);
       } else {
+        setAnimHeight(stop);
         setAnimState(EXPANDED);
       }
     }, 1 / 60);
@@ -83,13 +84,12 @@ function Collapse(props) {
     let start = calcAnimHeight(ref.current);
     setTimeout(() => {
       if (animHeight > 0) {
-        setAnimHeight(animHeight - 1);
+        setAnimHeight(animHeight - 2);
       } else {
+        setAnimHeight(0);
         setAnimState(COLLAPSED);
       }
     }, 1 / 60);
-    setAnimHeight(0);
-    setAnimState(COLLAPSED);
   }
   return (
     <nav
