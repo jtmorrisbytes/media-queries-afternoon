@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "react-proptypes";
 
+// sub-components
 import Collapse from "./Collapse/Collapse";
 import Item from "./Item/Item";
 import Link from "./Link/Link";
+import Brand from "./Brand/Brand";
 
 import "./Navbar.scss";
 
@@ -23,6 +25,7 @@ Navbar.propTypes = {
 Navbar.Collapse = Collapse;
 Navbar.Item = Item;
 Navbar.Link = Link;
+Navbar.Brand = Brand;
 Navbar.Toggle = function () {
   return null;
 };
