@@ -6,6 +6,7 @@ import Collapse from "./Collapse/Collapse";
 import Item from "./Item/Item";
 import Link from "./Link/Link";
 import Brand from "./Brand/Brand";
+import Toggle from "./Toggle/Toggle";
 
 import "./Navbar.scss";
 
@@ -26,6 +27,4 @@ Navbar.Collapse = Collapse;
 Navbar.Item = Item;
 Navbar.Link = Link;
 Navbar.Brand = Brand;
-Navbar.Toggle = function () {
-  return null;
-};
+Navbar.Toggle = Toggle;
