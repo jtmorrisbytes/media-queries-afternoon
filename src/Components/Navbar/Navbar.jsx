@@ -7,6 +7,7 @@ import Item from "./Item/Item";
 import Link from "./Link/Link";
 import Brand from "./Brand/Brand";
 import Toggle from "./Toggle/Toggle";
+import Container from "../Container/Container";
 
 import "./Navbar.scss";
 

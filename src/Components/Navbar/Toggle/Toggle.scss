@@ -1,0 +1,16 @@
+@import "../../../breakpoints";
+@import "../../../colors.scss";
+
+.navbar-toggle {
+  background-color: $brand-primary;
+  color: $brand-light;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}
+
+@media screen and (min-width: $break-desktop) {
+  .navbar-toggle {
+    display: none;
+  }
+}
