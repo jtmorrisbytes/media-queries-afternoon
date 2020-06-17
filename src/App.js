@@ -8,7 +8,7 @@ import Header from "./Components/Header/Header";
 function App() {
   return (
     <div className="App">
-      <Navbar>
+      <Navbar className="dark">
         <Navbar.Brand>this is some brand text</Navbar.Brand>
         <Navbar.Toggle>Menu</Navbar.Toggle>
         <Navbar.Collapse>

@@ -1,0 +1,27 @@
+@import "../../breakpoints";
+@import "../../colors";
+.navbar,
+.navbar > .container,
+.navbar.dark,
+.navbar.dark > .container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.navbar,
+.navbar.light {
+  background-color: $brand-light;
+}
+
+.navbar.dark {
+  background-color: $brand-dark;
+  p,
+  span,
+  div,
+  ul,
+  li,
+  b,
+  i,
+  a {
+    color: $brand-light;
+  }
+}

@@ -1,6 +1,22 @@
 .navbar-collapse {
   overflow: hidden;
+  display: none;
 }
-.navbar-collaspse > ul > li {
+.navbar-collapse > ul {
   list-style-type: none;
+  background-color: red;
+}
+
+.navbar-collapse.expanding,
+.navbar-collapse.expanded,
+.navbar-collapse.collapsing {
+  display: block;
+  flex-basis: 100%;
+  background-color: green;
+}
+.navbar-collapse.expanding::after,
+.navbar-collapse.expanded::after,
+.navbar-collapse.collapsing::after {
+  display: block;
+  content: "";
 }

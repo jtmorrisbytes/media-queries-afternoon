@@ -6,7 +6,8 @@
   color: $brand-light;
   border: none;
   border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
+  outline: none;
 }
 
 @media screen and (min-width: $break-desktop) {

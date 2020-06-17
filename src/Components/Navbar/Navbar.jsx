@@ -50,8 +50,8 @@ export default function Navbar(props) {
     });
   });
   return (
-    <div id={props.id || ""} className={"navbar" + props.className}>
-      {children}
+    <div id={props.id || ""} className={"navbar " + props.className}>
+      <Container>{children}</Container>
     </div>
   );
 }
