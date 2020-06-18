@@ -1,0 +1,14 @@
+@import "../../../breakpoints.scss";
+@import "../../../colors.scss";
+img.navbar-brand {
+  width: 8rem;
+  height: auto;
+}
+
+svg.navbar-brand {
+}
+@media screen and (min-width: $break-mobile) {
+  img.navbar-brand {
+    width: 10rem;
+  }
+}

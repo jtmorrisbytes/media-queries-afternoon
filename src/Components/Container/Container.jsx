@@ -1,16 +1,10 @@
 import React from "react";
 
+import "./Container.scss";
+
 function Container(props) {
-  return (
-    <div
-      className={
-        (props.fluid ? "container-fluid" : "container") + props.className
-          ? ` ${props.className}`
-          : ""
-      }
-    >
-      {props.children}
-    </div>
-  );
+  let className = props.className || "";
+  let type = props.fluid ? "container-fluid" : "container";
+  return <div className={`${type} ${className}`.trim()}>{props.children}</div>;
 }
 export default Container;

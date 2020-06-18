@@ -34,7 +34,7 @@ function renderListItems(children = []) {
       return child;
     }
     return (
-      <Item key={child?.props?.id || child?.props?.key || index}>{child}</Item>
+      <Item key={child?.props.id || child?.props?.key || index}>{child}</Item>
     );
   });
 }
@@ -54,51 +54,46 @@ function calcAnimHeight(element) {
   return 0;
 }
 
+let style = {};
+
 function calcAnimFrame(ref, animHeight, setAnimHeight) {}
-function Collapse(props) {
-  let className = props.className || "";
-  const ref = React.useRef();
-  const [animState, setAnimState] = React.useState(DEFAULT);
-  const [animHeight, setAnimHeight] = React.useState(
-    calcAnimHeight(ref?.current)
-  );
-  if (props.toggleRequested) {
-    if (animState === COLLAPSED) {
-      setAnimState(EXPANDING);
-    } else if (animState === EXPANDED) {
-      setAnimState(COLLAPSING);
+class Collapse extends React.Component {
+  constructor(props) {
+    super(props);
+    this.listRef = React.createRef();
+  }
+  calcMaxHeight() {
+    if (this?.listRef?.current) {
+      let e = this.listRef.current;
+      let s = window.getComputedStyle(e);
+      return [
+        e.clientHeight,
+
+        s.paddingTop,
+        s.paddingBottom,
+        s.borderTop,
+        s.borderBottom,
+        s.marginTop,
+        s.marginBottom,
+      ].reduce((a, c) => {
+        return a + (parseInt(c) || 0);
+      }, 0);
     }
-    props.updateToggleRequest(false);
+    return 0;
   }
-  if (animState === EXPANDING) {
-    let stop = calcAnimHeight(ref.current);
-    setTimeout(() => {
-      if (animHeight < stop) {
-        setAnimHeight(animHeight + 2);
-      } else {
-        setAnimHeight(stop);
-        setAnimState(EXPANDED);
-      }
-    }, 1 / 60);
-  } else if (animState === COLLAPSING) {
-    let start = calcAnimHeight(ref.current);
-    setTimeout(() => {
-      if (animHeight > 0) {
-        setAnimHeight(animHeight - 2);
-      } else {
-        setAnimHeight(0);
-        setAnimState(COLLAPSED);
-      }
-    }, 1 / 60);
+  render() {
+    let className = this.props.className || "";
+    return (
+      <nav
+        style={{ ...style }}
+        onAnimationEnd={this.props.onAnimationEnd}
+        onClick={this.props.onClick}
+        className={`navbar-collapse ${this.props.animState} ${className}`}
+      >
+        <ul ref={this.listRef}>{renderListItems(this.props.children)}</ul>
+      </nav>
+    );
   }
-  return (
-    <nav
-      style={{ height: `${animHeight}px` }}
-      className={`navbar-collapse ${animState} ${className}`}
-    >
-      <ul ref={ref}>{renderListItems(props.children)}</ul>
-    </nav>
-  );
 }
 Collapse.animState = {
   COLLAPSED,

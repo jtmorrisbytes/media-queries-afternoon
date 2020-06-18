@@ -6,13 +6,27 @@
 .navbar.dark > .container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
+// .navbar.container,
+// .navbar.dark.container {
+//   height: auto;
+// }
 .navbar,
 .navbar.light {
   background-color: $brand-light;
 }
+.navbar .navbar-nav.expanding,
+.navbar .navbar-nav.expanded,
+.navbar .navbar-nav.collapsing,
+.navbar.dark .navbar-nav.expanding,
+.navbar.dark .navbar-nav.expanded,
+.navbar.dark .navbar-nav.collapsing {
+  height: max-content;
+}
 
-.navbar.dark {
+.navbar.navbar.dark {
   background-color: $brand-dark;
   p,
   span,

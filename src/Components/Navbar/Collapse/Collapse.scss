@@ -1,22 +1,53 @@
-.navbar-collapse {
-  overflow: hidden;
-  display: none;
-}
+@import "../../../breakpoints.scss";
+
 .navbar-collapse > ul {
   list-style-type: none;
-  background-color: red;
+  height: auto;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  max-height: auto;
 }
+@media screen and (max-width: $break-tablet) {
+  .navbar-collapse.expanded {
+    display: block;
+    flex-basis: 100%;
+    flex-grow: 1;
+    margin-top: 1em;
+    animation-name: expanding;
+    animation-duration: 500ms;
+  }
+  .navbar-collapse.collapsed {
+    display: none;
+    animation-name: collapsing;
+    animation-duration: 300ms;
+  }
+  @keyframes collapsing {
+    from {
+      max-height: 100%;
+    }
+    to {
+      max-height: 0;
+    }
+  }
 
-.navbar-collapse.expanding,
-.navbar-collapse.expanded,
-.navbar-collapse.collapsing {
-  display: block;
-  flex-basis: 100%;
-  background-color: green;
+  @keyframes expanding {
+    from {
+      max-height: 0;
+    }
+    to {
+      max-height: 100%;
+    }
+  }
 }
-.navbar-collapse.expanding::after,
-.navbar-collapse.expanded::after,
-.navbar-collapse.collapsing::after {
-  display: block;
-  content: "";
+@media screen and (min-width: $break-tablet) {
+  .navbar-collapse {
+    flex-basis: 20%;
+    flex-grow: 0.125;
+  }
+  .navbar-collapse > ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
 }

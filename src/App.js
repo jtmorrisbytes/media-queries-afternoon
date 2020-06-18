@@ -1,15 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
 import Navbar from "./Components/Navbar/Navbar";
 
 import "./App.scss";
-
+import logo from "./navbar-logo.svg";
 import Header from "./Components/Header/Header";
 function App() {
   return (
     <div className="App">
       <Navbar className="dark">
-        <Navbar.Brand>this is some brand text</Navbar.Brand>
+        <Navbar.Brand src={logo} alt="Start Bootstrap" />
         <Navbar.Toggle>Menu</Navbar.Toggle>
         <Navbar.Collapse>
           <Navbar.Link href="https://www.google.com">item 1</Navbar.Link>
