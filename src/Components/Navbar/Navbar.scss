@@ -26,7 +26,7 @@
   height: max-content;
 }
 
-.navbar.navbar.dark {
+.navbar.dark {
   background-color: $brand-dark;
   p,
   span,
@@ -37,5 +37,23 @@
   i,
   a {
     color: $brand-light;
+  }
+}
+
+@media screen and (min-width: $break-tablet) {
+  .navbar,
+  .navbar.light,
+  .navbar.dark {
+    background-color: transparent;
+    p,
+    span,
+    div,
+    ul,
+    li,
+    b,
+    i,
+    a {
+      color: $brand-dark;
+    }
   }
 }
