@@ -8,6 +8,13 @@
   padding: 0;
   max-height: auto;
 }
+.navbar-collapse ul > li {
+  font-size: 0.95rem;
+  a {
+    text-decoration: none;
+  }
+}
+
 @media screen and (max-width: $break-tablet) {
   .navbar-collapse.expanded {
     display: block;
@@ -42,8 +49,8 @@
 }
 @media screen and (min-width: $break-tablet) {
   .navbar-collapse {
-    flex-basis: 20%;
-    flex-grow: 0.125;
+    flex-basis: 25%;
+    flex-grow: 0.25;
   }
   .navbar-collapse > ul {
     display: flex;
