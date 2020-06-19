@@ -1,5 +1,15 @@
+@import "../../breakpoints.scss";
+
 .container {
   width: 95%;
   margin-left: auto;
   margin-right: auto;
+}
+
+@each $breakpoint in $breakpoints {
+  @media screen and (min-width: $breakpoint) {
+    .container {
+      max-width: $breakpoint;
+    }
+  }
 }

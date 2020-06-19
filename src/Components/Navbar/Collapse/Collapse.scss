@@ -1,28 +1,38 @@
 @import "../../../breakpoints.scss";
 
+.navbar-collapse {
+  // display: flex;
+  // justify-content: flex-start;
+  // flex-direction: column;
+  height: fit-content;
+}
+
 .navbar-collapse > ul {
+  // overflow: hidden;
   list-style-type: none;
-  height: auto;
-  overflow: hidden;
   margin: 0;
   padding: 0;
-  max-height: auto;
 }
 .navbar-collapse ul > li {
   font-size: 0.95rem;
+  margin-bottom: 1rem;
   a {
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.0625em;
   }
 }
 
 @media screen and (max-width: $break-tablet) {
   .navbar-collapse.expanded {
-    display: block;
+    display: flex;
     flex-basis: 100%;
+    max-height: 15em;
     flex-grow: 1;
     margin-top: 1em;
     animation-name: expanding;
     animation-duration: 500ms;
+    transform-origin: top;
   }
   .navbar-collapse.collapsed {
     display: none;
@@ -40,10 +50,10 @@
 
   @keyframes expanding {
     from {
-      max-height: 0;
+      transform: translateY(-20%);
     }
     to {
-      max-height: 100%;
+      transform: translateY(0);
     }
   }
 }

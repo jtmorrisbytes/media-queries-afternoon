@@ -1,14 +1,21 @@
 @import "../../breakpoints";
 @import "../../colors";
 .navbar,
-.navbar > .container,
-.navbar.dark,
-.navbar.dark > .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+.navbar.light,
+.navbar.dark {
+  overflow-x: hidden;
 }
+
+.navbar,
+.navbar.dark {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
 // .navbar.container,
 // .navbar.dark.container {
 //   height: auto;
@@ -17,14 +24,15 @@
 .navbar.light {
   background-color: $brand-light;
 }
-.navbar .navbar-nav.expanding,
-.navbar .navbar-nav.expanded,
-.navbar .navbar-nav.collapsing,
-.navbar.dark .navbar-nav.expanding,
-.navbar.dark .navbar-nav.expanded,
-.navbar.dark .navbar-nav.collapsing {
-  height: max-content;
-}
+
+// .navbar .navbar-nav.expanding,
+// .navbar .navbar-nav.expanded,
+// .navbar .navbar-nav.collapsing,
+// .navbar.dark .navbar-nav.expanding,
+// .navbar.dark .navbar-nav.expanded,
+// .navbar.dark .navbar-nav.collapsing {
+//   height: auto;
+// }
 
 .navbar.dark {
   background-color: $brand-dark;

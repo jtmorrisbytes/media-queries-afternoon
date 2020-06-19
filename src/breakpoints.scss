@@ -11,3 +11,4 @@ $break-mobile: 575px;
 $break-tablet: 767px;
 $break-desktop: 992px;
 $break-desktop-lg: 1200px;
+$breakpoints: $break-mobile, $break-tablet, $break-desktop, $break-desktop-lg;
