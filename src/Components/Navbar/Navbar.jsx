@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import PropTypes, { func } from "react-proptypes";
+import PropTypes, { func, element } from "react-proptypes";
 
 // sub-components
 import Collapse from "./Collapse/Collapse";
@@ -19,57 +19,137 @@ const ANIMATION_STATES = {
 };
 
 function wrapCollpase(element, calcNewChildProps, extraProps) {
-  console.log("wrapCollapse Called");
-  //   console.log("child element", element);
-  //   console.log("calcNewChildProps", calcNewChildProps);
-  //   console.log("extraprops", extraProps);
   return React.cloneElement(element, {
     ...calcNewChildProps(element),
     ...extraProps,
   });
 }
-function NoOpComponent(props) {
-  return null;
-}
-
-function wrapToggle(element, calcNewChildProps, extraProps) {
-  return React.cloneElement(element, calcNewChildProps);
-}
-function computeKey(key, id, index) {
-  return key || id || index || 0;
-}
-function updateAnimState(animState, setAnimState) {
-  console.log("updateAnimState Requested");
-  console.log(animState, setAnimState);
+function updateAnimState(animState, setAnimState, ref) {
   if (animState === ANIMATION_STATES.COLLAPSED) {
-    setAnimState(ANIMATION_STATES.EXPANDED);
+    setAnimState(ANIMATION_STATES.EXPANDING);
+    requestAnimationFrame((time) => {
+      expandNavList(time, ref, animState, setAnimState);
+    });
   } else if (animState === ANIMATION_STATES.EXPANDED) {
-    setAnimState(ANIMATION_STATES.COLLAPSED);
+    setAnimState(ANIMATION_STATES.COLLAPSING);
+    requestAnimationFrame((time) => {
+      collapseNavList(time, ref, animState, setAnimState);
+    });
   } else {
     setAnimState(ANIMATION_STATES.COLLAPSED);
   }
 }
+function expandNavList(
+  currentTime,
+  ref,
+  animState,
+  setAnimState,
+  startTime = null,
+  duration = 500,
+  ls = null,
+  collapse = null
+) {
+  startTime = startTime || currentTime;
+  ls =
+    ls ||
+    window.getComputedStyle(ref?.current?.querySelector(".navbar-collapse ul"));
+  collapse = collapse || ref.current.querySelector(".navbar-collapse");
+  if (collapse.classList.contains(ANIMATION_STATES.EXPANDING)) {
+    let cs = window.getComputedStyle(collapse);
+    let csComputedHeight = parseFloat(cs.height);
+    if (collapse && cs && ls) {
+      let th =
+        parseFloat(ls.height) +
+        parseFloat(ls.marginTop) +
+        parseFloat(ls.paddingTop) +
+        parseFloat(ls.borderTop) +
+        parseFloat(ls.borderBottom) +
+        parseFloat(ls.paddingBottom) +
+        parseFloat(ls.marginBottom);
+      let inc = th * ((currentTime - startTime) / duration);
+      collapse.style.height = `${Math.min(inc, th)}px`;
+      if (inc > th) {
+        collapse.style = undefined;
+        setAnimState(ANIMATION_STATES.EXPANDED);
+        return;
+      }
+      requestAnimationFrame((time) =>
+        expandNavList(
+          time,
+          ref,
+          animState,
+          setAnimState,
+          startTime,
+          duration,
+          ls,
+          collapse
+        )
+      );
+    }
+  } else {
+    collapse.style = undefined;
+    setAnimState(ANIMATION_STATES.EXPANDED);
+  }
+}
+function collapseNavList(
+  time,
+  ref,
+  animState,
+  setAnimState,
+  startTime,
+  startHeight,
+  cs,
+  collapse,
+  duration = 500
+) {
+  collapse = collapse || ref?.current?.querySelector(".navbar-collapse");
+  cs = cs || window.getComputedStyle(collapse);
+  if (collapse == null || cs == null) {
+    setAnimState(ANIMATION_STATES.COLLAPSED);
+    return;
+  }
+  startTime = startTime || time;
+  startHeight = startHeight || parseFloat(cs.height);
+  let th = startHeight;
+  collapse.style.height = `${Math.max(th, 0)}px`;
+  if (th > 0) {
+    requestAnimationFrame((time) => {
+      collapseNavList(
+        time,
+        ref,
+        animState,
+        setAnimState,
+        startTime,
+        startHeight,
+        cs,
+        collapse,
+        duration
+      );
+    });
+  } else {
+    setAnimState(ANIMATION_STATES.COLLAPSED);
+  }
 
+  // requestAnimationFrame((time) => {
+  //   collapseNavList(time, ref, animState, setAnimState, list, collapse);
+  // });
+}
 export default function Navbar(props) {
   let children = [...props.children];
-  const [toggleRequested, updateToggleRequest] = React.useState(false);
   const [animState, setAnimState] = React.useState(ANIMATION_STATES.COLLAPSED);
+  const ref = React.useRef();
   let ToggleElem = null;
   let CollapseElem = null;
-  console.dir(children);
   for (let index = children.length - 1; index > 0; index--) {
     let child = children[index];
-    console.log("index", index);
     if (child.type === Brand) {
-      console.log("found brand");
     } else if (child.type === Toggle) {
-      console.log("found toggle");
       ToggleElem = React.cloneElement(child, {
-        onClick: updateAnimState.bind(null, animState, setAnimState),
+        onClick: updateAnimState.bind(this, animState, setAnimState, ref),
+        // ref: collapseRef,
       });
       children.splice(index, 1);
     } else if (child.type === Collapse) {
-      console.log("found collapse");
       CollapseElem = React.cloneElement(child, {
         animState,
       });
@@ -79,9 +159,8 @@ export default function Navbar(props) {
       break;
     }
   }
-
   return (
-    <div id={props.id || ""} className={"navbar " + props.className}>
+    <div ref={ref} id={props.id || ""} className={"navbar " + props.className}>
       <Container>
         {children}
         {ToggleElem}
